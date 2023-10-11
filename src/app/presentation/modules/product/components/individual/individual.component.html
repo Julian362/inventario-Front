@@ -2,7 +2,13 @@
   <div class="card">
     <div class="border">
       <i class="fa fa-heart"></i>
-      <img src="https://i.imgur.com/VY0R9aV.jpg" />
+      <img
+        [src]="
+          '../../../../../../assets/img/products-categories/' +
+          product.category +
+          '.png'
+        "
+      />
     </div>
     <div class="central-div">
       <h3>{{ product.name }}</h3>
