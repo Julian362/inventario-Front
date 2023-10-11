@@ -21,7 +21,7 @@ const routes: Routes = [
         component: RegisterComponent,
       },
       {
-        path: ':id',
+        path: 'individual/:id',
         component: IndividualProductComponent,
       },
     ],

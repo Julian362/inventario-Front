@@ -1,1 +1,11 @@
-<p>get-all works!</p>
+<select
+  id="branchId"
+  name="branchId"
+  [(ngModel)]="selectedBranchId"
+  class="form-control"
+  (change)="onBranchChange()"
+>
+  <option *ngFor="let branch of branchesList" [value]="branch.id">
+    {{ branch.name }}
+  </option>
+</select>

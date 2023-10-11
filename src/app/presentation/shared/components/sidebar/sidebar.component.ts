@@ -10,8 +10,6 @@ export class SidebarComponent {
 
   constructor() {}
 
-  ngOnInit(): void {}
-
   toggleSidebar() {
     this.expanded = !this.expanded;
   }

@@ -44,7 +44,10 @@
     let i = index
   ">
       <div class="card">
-        <div class="product-image">
+        <div
+          [routerLink]="'/product/individual/' + product.id"
+          class="product-image"
+        >
           <div class="product-name-overlay">
             <h4>{{ product.name }}</h4>
           </div>

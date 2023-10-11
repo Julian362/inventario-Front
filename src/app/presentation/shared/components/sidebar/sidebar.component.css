@@ -31,7 +31,7 @@
 }
 
 #sidebar.active ~ #content {
-  margin-left: 70px; /* Ancho de la barra lateral cuando está colapsada */
+  margin-left: 70px;
 }
 
 .btn-circle.btn-xl {
