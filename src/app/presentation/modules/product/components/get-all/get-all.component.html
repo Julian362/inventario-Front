@@ -5,32 +5,34 @@
   </button>
 </div>
 
-<div *ngIf="productsSale.length > 0" class="cart-container collapse mt-2 me-2" id="cartCollapse">
-  <div class="d-flex justify-content-center">
-    <span class="close-icon" (click)="closeCart()">✕</span>
-    <!-- Contenido del carrito -->
-  </div>
-  <!-- Lista de productos en el carrito -->
-  <div *ngFor="let item of productsSale" class="card card-body mb-2">
-    <div class="row">
-      <div class="col-md-8 input-group">
-        <p>Nombre: {{ item.name }}</p>
-        <p class="ms-4">Cantidad: {{ item.quantity }}</p>
-        <span class="close-icon ms-4" (click)="deleteItem(item.id)">✕</span>
+<div *ngIf="productsSale.length > 0" class="collapse mt-2 me-2" id="cartCollapse">
+  <div class="overlay-bg" *ngIf="productsSale.length > 0" (click)="closeCart()">
+    <div class="cart-container">
+      <div class="d-flex justify-content-center">
+        <span class="close-icon" (click)="closeCart()">✕</span>
+      </div>
+      <div *ngFor="let item of productsSale" class="card card-body mb-2">
+        <div class="row">
+          <div class="col-md-8 input-group">
+            <p>Nombre: {{ item.name }}</p>
+            <p class="ms-4">Cantidad: {{ item.quantity }}</p>
+            <span class="close-icon ms-4" (click)="deleteItem(item.id)">✕</span>
+          </div>
+        </div>
+      </div>
+      <div class="mb-2">
+        Compra al por mayor
+        <input type="checkbox" name="sale" id="sale" [(ngModel)]="isChecked" />
+      </div>
+      <div class="buttons sale-button-container">
+        <button class="sale-button" (click)="purchase()" [ngClass]="{ saleClicked: saleClicked }">
+          <span class="add-to-sale">Finalizar compra</span>
+          <span class="added-sale fs-4"><i class="bi bi-check2-circle blue"></i></span>
+          <i class="fs-4 bi bi-truck-flatbed"></i>
+          <i class="fs-12 bi bi-square-fill blue"></i>
+        </button>
       </div>
     </div>
-  </div>
-  <div class="mb-2">
-    Compra al por mayor
-    <input type="checkbox" name="sale" id="sale" [(ngModel)]="isChecked" />
-  </div>
-  <div class="buttons sale-button-container">
-    <button class="sale-button" (click)="purchase()" [ngClass]="{ saleClicked: saleClicked }">
-      <span class="add-to-sale">Finalizar compra</span>
-      <span class="added-sale fs-4"><i class="bi bi-check2-circle blue"></i></span>
-      <i class="fs-4 bi bi-truck-flatbed"></i>
-      <i class="fs-12 bi bi-square-fill blue"></i>
-    </button>
   </div>
 </div>
 
