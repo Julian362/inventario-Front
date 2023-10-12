@@ -124,6 +124,7 @@ export class GetAllProductsComponent implements OnInit {
         {
           products: this.productsSale,
           branchId: this.branchId,
+          userId: '04dca168-b8cf-437e-acf3-d7ad3761d8f5',
         },
         this.isChecked ? 'seller-sale' : 'customer-sale'
       )

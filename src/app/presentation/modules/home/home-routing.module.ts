@@ -19,6 +19,12 @@ const routes: Routes = [
       return import('../branch/branch.module').then((m) => m.BranchModule);
     },
   },
+  {
+    path: 'invoices',
+    loadChildren: () => {
+      return import('../sale/sale.module').then((m) => m.SaleModule);
+    },
+  },
 ];
 
 @NgModule({
