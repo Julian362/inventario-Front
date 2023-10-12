@@ -11,7 +11,7 @@ import { environment } from 'src/environments';
 })
 export class SaleImplementationRepository extends SaleRepository {
   apiUrl = `http://${environment.HOST_3000}/api/v1/product/`;
-  apiUrlGetAll = `http://${environment.HOST_3001}/api/v1/product/`;
+  apiUrlGetAll = `http://${environment.HOST_3001}/api/v1/sales/`;
   override createSale(
     Sale: ISaleModel,
     type: string
@@ -19,6 +19,7 @@ export class SaleImplementationRepository extends SaleRepository {
     return this.http.patch<IProductSaleModel>(`${this.apiUrl}${type}/`, Sale);
   }
   override getAllSale(id: string): Observable<IProductSaleModel[]> {
+    console.log(id);
     return this.http
       .get<
         {
@@ -33,20 +34,23 @@ export class SaleImplementationRepository extends SaleRepository {
       .pipe(
         map((data) => {
           return data.map((sale) => {
-            return {
-              id: sale.id,
-              number: sale.number,
-              total: sale.total,
-              date: sale.date,
-              branchId: sale.branchId,
-              products: sale.products.map((product) => {
-                return JSON.parse(product) as {
-                  name: string;
-                  price: number;
-                  quantity: number;
-                };
-              }),
-            };
+            if (typeof sale.products[0] === 'string') {
+              return {
+                id: sale.id,
+                number: sale.number,
+                total: sale.total,
+                date: sale.date,
+                branchId: sale.branchId,
+                products: sale.products.map((product) => {
+                  return JSON.parse(product) as {
+                    name: string;
+                    price: number;
+                    quantity: number;
+                  };
+                }),
+              };
+            }
+            return sale as unknown as IProductSaleModel;
           });
         })
       );
