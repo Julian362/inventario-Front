@@ -24,7 +24,8 @@
       "@domain/*": ["./src/app/domain/*"],
       "data/*": ["./src/app/data/*"],
       "@presentation/*": ["./src/app/presentation/*"],
-      "@shared/*": ["./src/app/presentation/shared/*"]
+      "@shared/*": ["./src/app/presentation/shared/*"],
+      "file-saver-es": ["@types/file-saver"]
     }
   },
   "angularCompilerOptions": {

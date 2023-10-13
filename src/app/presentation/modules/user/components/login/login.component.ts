@@ -35,6 +35,7 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
+    this.notifier.notify('success', 'Hola!!');
     const data = <{ email: string; password: string }>this.loginForm.value;
     this.email = data.email;
     this.password = data.password;
@@ -103,8 +104,10 @@ export class LoginComponent {
     localStorage.setItem('token', response.token);
     localStorage.setItem('branchId', response.data.branchId);
     this.authService.login();
-    this.router.navigate(['/home']);
     this.notifier.notify('success', 'Hola!!');
+    setTimeout(() => {
+      this.router.navigate(['/home']);
+    });
     // TODO: servicio de notificación
   }
 
