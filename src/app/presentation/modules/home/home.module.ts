@@ -25,8 +25,8 @@ const config: SocketIoConfig = { url: environment.HOST_81, options: {} };
   imports: [
     CommonModule,
     HomeRoutingModule,
-    HttpClientModule,
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     NotifierModule,
