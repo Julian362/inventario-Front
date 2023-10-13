@@ -1,5 +1,5 @@
 export interface IUserRegister {
-  name: {
+  fullName: {
     firstName: string;
     lastName: string;
   };
@@ -7,4 +7,13 @@ export interface IUserRegister {
   password: string;
   role: string;
   branchId: string;
+}
+
+export interface IUserRegisterForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  role: string;
+  branch: string;
 }

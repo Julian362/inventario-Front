@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GetAllBranchesComponent } from './components';
+import { GetAllBranchesComponent, RegisterComponent } from './components';
 import { BranchComponent } from './pages/branch/branch.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: BranchComponent,
     children: [
       {
         path: 'config',
         component: GetAllBranchesComponent,
+      },
+      {
+        path: 'branch/register',
+        component: RegisterComponent,
       },
     ],
   },

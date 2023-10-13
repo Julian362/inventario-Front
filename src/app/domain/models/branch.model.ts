@@ -8,3 +8,17 @@ export interface IBranchModel {
   products: IProductModel[];
   users: IUserModel[];
 }
+
+export interface IBranchRegisterForm {
+  name: string;
+  city: string;
+  country: string;
+}
+
+export interface IBranchRegister {
+  name: string;
+  location: {
+    city: string;
+    country: string;
+  };
+}

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,6 +16,7 @@ import { UserModule } from '../user';
 import { LandingComponent } from './components';
 import { HomeRoutingModule } from './home-routing.module';
 import { AppComponent } from './pages';
+import { AuthInterceptor } from '@presentation/shared/interceptors';
 
 const config: SocketIoConfig = { url: environment.HOST_81, options: {} };
 
@@ -38,6 +39,10 @@ const config: SocketIoConfig = { url: environment.HOST_81, options: {} };
     SocketIoModule.forRoot(config),
     HomeRoutingModule,
   ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
+
   bootstrap: [AppComponent],
 })
 export class HomeModule {}

@@ -11,7 +11,7 @@ import {
   BranchUseCaseProviders,
   ProductUseCaseProviders,
   SaleUseCaseProviders,
-  userUseCaseProviders,
+  UserUseCaseProviders,
 } from './factory';
 import {
   BranchImplementationRepository,
@@ -23,7 +23,7 @@ import {
 @NgModule({
   providers: [
     UserImplementationRepository,
-    ...Object.values(userUseCaseProviders),
+    ...Object.values(UserUseCaseProviders),
     { provide: UserRepository, useClass: UserImplementationRepository },
     BranchImplementationRepository,
     ...Object.values(BranchUseCaseProviders),

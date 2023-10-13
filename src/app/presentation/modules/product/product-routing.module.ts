@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RegisterComponent } from '../branch';
 import {
   GetAllProductsComponent,
   IndividualProductComponent,
 } from './components';
 import { ProductComponent } from './pages/product/product.component';
+import { RegisterProductComponent } from '../product/components';
 
 const routes: Routes = [
   {
@@ -17,8 +17,8 @@ const routes: Routes = [
         component: GetAllProductsComponent,
       },
       {
-        path: 'register',
-        component: RegisterComponent,
+        path: 'product/register',
+        component: RegisterProductComponent,
       },
       {
         path: 'individual/:id',
