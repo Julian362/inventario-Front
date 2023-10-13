@@ -16,8 +16,11 @@
           </p>
 
           <div class="col-auto">
-            <button class="btn btn-primary" id="submitButton" type="submit" routerLink="/login">
+            <button *ngIf="!loggedIn" class="btn btn-primary" id="submitButton" type="submit" routerLink="/login">
               Iniciar sesión
+            </button>
+            <button *ngIf="loggedIn" class="btn btn-primary" id="submitButton" type="submit" (click)="logout()">
+              Cerrar sesión
             </button>
           </div>
         </div>

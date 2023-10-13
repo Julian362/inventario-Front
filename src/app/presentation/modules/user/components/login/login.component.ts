@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoginResponse } from '@domain/models';
 import { UserRepository } from '@domain/repository';
+import { AuthService } from '@presentation/shared/services/auth.service';
 import { NotifierService } from 'angular-notifier';
 import { UserUseCaseProviders } from 'data/factory';
 
@@ -24,7 +25,8 @@ export class LoginComponent {
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly userRepository: UserRepository,
-    private readonly notifier: NotifierService
+    private readonly notifier: NotifierService,
+    private authService: AuthService
   ) {
     this.loginForm = this.formBuilder.group({
       email: [this.email, [Validators.required]],
@@ -100,6 +102,7 @@ export class LoginComponent {
     localStorage.setItem('user', JSON.stringify(response.data));
     localStorage.setItem('token', response.token);
     localStorage.setItem('branchId', response.data.branchId);
+    this.authService.login();
     this.router.navigate(['/home']);
     this.notifier.notify('success', 'Hola!!');
     // TODO: servicio de notificación

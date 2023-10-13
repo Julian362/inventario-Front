@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   front-app:
-    image: inventory-front
+    image: eduarandres/front-app:latest
     container_name: front-app
     restart: always
     ports:
@@ -10,6 +10,7 @@ services:
       HOST_3000: "172.25.83.113:30000"
       HOST_3001: "172.25.83.113:30001"
       HOST_3002: "172.25.83.113:30002"
+      HOST_3003: "172.25.83.113:30003"
       HOST_81: "172.25.83.113:30081"
     volumes:
       - front-app:/usr/share/nginx/html
