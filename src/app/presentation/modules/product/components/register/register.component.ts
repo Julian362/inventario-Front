@@ -57,6 +57,7 @@ export class RegisterProductComponent implements OnInit {
   }
   ngOnInit(): void {
     this.productCategories = Object.values(ProductCategoryEnum);
+    this.branchId = localStorage.getItem('branchId') || '';
   }
 
   onSubmit(): void {

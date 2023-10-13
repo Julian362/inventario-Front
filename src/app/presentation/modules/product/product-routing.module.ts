@@ -6,11 +6,13 @@ import {
 } from './components';
 import { ProductComponent } from './pages/product/product.component';
 import { RegisterProductComponent } from '../product/components';
+import { AuthGuardEmployee } from '@presentation/shared/guards';
 
 const routes: Routes = [
   {
     path: '',
     component: ProductComponent,
+    canActivate: [AuthGuardEmployee],
     children: [
       {
         path: 'all',

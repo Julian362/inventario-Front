@@ -17,6 +17,7 @@ import { SaleUseCaseProviders } from 'data/factory';
 })
 export class GetAllProductsComponent implements OnInit {
   branchId: string = '';
+  userId: string = '';
   products = this.socket.products;
   p: number = 1;
   numbers: number[] = [];
@@ -44,10 +45,10 @@ export class GetAllProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.branchId = localStorage.getItem('branchId') || '';
+    this.userId = JSON.parse(localStorage.getItem('user') || '').userId;
     this.socket.joinInventory(this.branchId);
     this.productRepository.getAllProduct(this.branchId).subscribe((data) => {
       this.socket.setProducts(data);
-
       this.socket.orderbyName();
     });
     this.products.subscribe((data) => {
@@ -124,7 +125,7 @@ export class GetAllProductsComponent implements OnInit {
         {
           products: this.productsSale,
           branchId: this.branchId,
-          userId: '04dca168-b8cf-437e-acf3-d7ad3761d8f5',
+          userId: this.userId,
         },
         this.isChecked ? 'seller-sale' : 'customer-sale'
       )

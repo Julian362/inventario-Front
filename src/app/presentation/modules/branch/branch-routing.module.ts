@@ -6,13 +6,14 @@ import { BranchComponent } from './pages/branch/branch.component';
 const routes: Routes = [
   {
     path: '',
+    component: BranchComponent,
     children: [
       {
         path: 'config',
         component: GetAllBranchesComponent,
       },
       {
-        path: 'branch/register',
+        path: 'register',
         component: RegisterComponent,
       },
     ],
