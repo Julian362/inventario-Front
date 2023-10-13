@@ -10,6 +10,7 @@ import {
 import { IndividualProductComponent } from './components/individual/individual.component';
 import { ProductComponent } from './pages/product/product.component';
 import { ProductRoutingModule } from './product-routing.module';
+import { ExcelComponent } from './components/excel/excel.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ProductRoutingModule } from './product-routing.module';
     IndividualProductComponent,
     GetAllProductsComponent,
     RegisterProductComponent,
+    ExcelComponent,
   ],
   imports: [
     ProductRoutingModule,

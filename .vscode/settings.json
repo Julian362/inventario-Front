@@ -1,5 +1,11 @@
 {
-  "cSpell.words": ["locksmithing", "Trax"],
+  "cSpell.words": [
+    "locksmithing",
+    "officedocument",
+    "openxmlformats",
+    "spreadsheetml",
+    "Trax"
+  ],
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#ff3333",
     "activityBar.background": "#ff3333",

@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuardEmployee } from '@presentation/shared/guards';
+import { RegisterProductComponent } from '../product/components';
 import {
   GetAllProductsComponent,
   IndividualProductComponent,
 } from './components';
+import { ExcelComponent } from './components/excel/excel.component';
 import { ProductComponent } from './pages/product/product.component';
-import { RegisterProductComponent } from '../product/components';
-import { AuthGuardEmployee } from '@presentation/shared/guards';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'individual/:id',
         component: IndividualProductComponent,
+      },
+      {
+        path: 'excel',
+        component: ExcelComponent,
       },
     ],
   },
