@@ -1,42 +1,64 @@
-<div class="row" *ngFor="let sale of sales">
-    <div class="col">{{sale.number}}</div>
-    <div class="col">
-        <button type="button" class="btn btn-primary launch" data-bs-toggle="modal"
-            [attr.data-bs-target]="'#F'+sale.number">
-            <i class="fa fa-info"></i> Get information
-        </button>
-        <div class=" modal fade" [id]="'F'+sale.number" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="text-end">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="px-4 py-5">
-                            <h5 class="text-uppercase">Jonathan Adler</h5>
-                            <h4 class="mt-5 text-primary mb-5">Thanks for your order</h4>
-                            <span class="text-primary">Payment Summary</span>
-                            <div class="mb-3">
-                                <hr class="my-4">
-                            </div>
-                            <div class="d-flex justify-content-between" *ngFor="let product of sale.products">
-                                <span class="font-weight-bold">{{product.name}}</span>
-                                <span class="text-muted">{{product.quantity}}</span>
-                                <span class="text-muted">{{product.price}}</span>
-                            </div>
-                            <div class="d-flex justify-content-between mt-3">
-                                <span class="font-weight-bold">Total</span>
-                                <span class="font-weight-bold text-primary">{{sale.total}}</span>
-                            </div>
-                            <div class="text-center mt-5">
-                                <button class="btn btn-primary">Track your order</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="row" *ngFor="let sale of sales | async">
+  <div class="col">{{ sale.number }}</div>
+  <div class="col">
+    <button
+      type="button"
+      class="btn btn-primary launch"
+      data-bs-toggle="modal"
+      [attr.data-bs-target]="'#F' + sale.number"
+    >
+      <i class="fa fa-info"></i> Get information
+    </button>
+    <div
+      class="modal fade"
+      [id]="'F' + sale.number"
+      tabindex="-1"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="text-end">
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
+            <div class="px-4 py-5">
+              <h5 class="text-uppercase">Jonathan Adler</h5>
+              <h4 class="mt-5 text-primary mb-5">Thanks for your order</h4>
+              <span class="text-primary">Payment Summary</span>
+              <div class="mb-3">
+                <hr class="my-4" />
+              </div>
+              <div
+                class="d-flex justify-content-between"
+                *ngFor="let product of sale.products"
+              >
+                <span class="font-weight-bold">{{ product.name }}</span>
+                <span class="text-muted">{{ product.quantity }}</span>
+                <span class="text-muted">{{ product.price }}</span>
+              </div>
+              <div class="d-flex justify-content-between mt-3">
+                <span class="font-weight-bold">Total</span>
+                <span class="font-weight-bold text-primary">{{
+                  sale.total
+                }}</span>
+              </div>
+              <div class="text-center mt-5">
+                <button class="btn btn-primary">Track your order</button>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="col">{{sale.date}}</div>
+  </div>
+  <div class="col">{{ sale.date }}</div>
 </div>

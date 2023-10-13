@@ -1,17 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
+import { GetAllSalesComponent } from './components/get-all/get-all.component';
 import { SaleRoutingModule } from './sale-routing.module';
-import { GetAllComponent } from './components/get-all/get-all.component';
-
 
 @NgModule({
-  declarations: [
-    GetAllComponent
-  ],
-  imports: [
-    CommonModule,
-    SaleRoutingModule
-  ]
+  declarations: [GetAllSalesComponent],
+  imports: [CommonModule, SaleRoutingModule],
 })
-export class SaleModule { }
+export class SaleModule {}

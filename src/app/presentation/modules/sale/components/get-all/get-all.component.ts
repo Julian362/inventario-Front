@@ -1,26 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { IProductSaleModel } from '@domain/models';
-import { GetAllSaleUseCase } from '@domain/use-case/sale/get-all.sale.use-case';
-import { SaleRepository } from '../../../../../domain/repository/sales.repository';
+import { SaleSocket } from '@presentation/shared';
 import { SaleUseCaseProviders } from 'data/factory';
+import { SaleRepository } from '../../../../../domain/repository/sales.repository';
 
 @Component({
   selector: 'app-get-all',
   templateUrl: './get-all.component.html',
   styleUrls: ['./get-all.component.css'],
 })
-export class GetAllComponent implements OnInit {
+export class GetAllSalesComponent implements OnInit {
   factorySale = SaleUseCaseProviders;
-  sales: IProductSaleModel[] = [];
+  sales = this.saleSocket.sales;
   branchId = '';
-  constructor(private readonly saleRepository: SaleRepository) {}
+  constructor(
+    private readonly saleRepository: SaleRepository,
+    private readonly saleSocket: SaleSocket
+  ) {}
   ngOnInit(): void {
     this.branchId = localStorage.getItem('branchId') || '';
+    this.saleSocket.joinSale(this.branchId);
     this.factorySale.getAllSale
       .useFactory(this.saleRepository)
       .execute(this.branchId)
       .subscribe((data) => {
-        this.sales = data;
+        this.saleSocket.setSales(data);
       });
   }
 }

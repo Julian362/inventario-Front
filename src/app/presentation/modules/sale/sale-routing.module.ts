@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GetAllComponent } from './components/get-all';
+import { GetAllSalesComponent } from './components';
 
 const routes: Routes = [
   {
     path: '',
-    component: GetAllComponent,
+    component: GetAllSalesComponent,
   },
 ];
 
