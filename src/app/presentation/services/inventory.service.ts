@@ -53,7 +53,7 @@ export class InventorySocket {
 
   updateProductById(product: IProductModel) {
     const products = this._products.value;
-    const index = products.findIndex((p) => p.id === product.id);
+    const index = products.findIndex((p) => p.productId === product.productId);
     products[index] = product;
     this._products.next(products);
   }

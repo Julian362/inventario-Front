@@ -1,8 +1,7 @@
 export interface IProductRegisterModel {
   name: string;
   description: string;
-  price: number;
-  quantity: number;
+  price: number;  
   category: string;
   branchId: string;
 }

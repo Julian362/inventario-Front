@@ -7,4 +7,6 @@ import { IUserRegister } from '../models/userRegister';
 })
 export abstract class UserRepository {
   abstract createUser(user: IUserRegister): Observable<IUserModel>;
+  abstract getAllUser(): Observable<IUserModel[]>;
+  abstract getUserById(id: string): Observable<IUserModel>;
 }

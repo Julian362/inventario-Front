@@ -17,14 +17,20 @@ export class BranchImplementationRepository extends BranchRepository {
 
   createBranch(Branch: IBranchRegisterModel): Observable<IBranchModel> {
     return this.http.post<IBranchModel>(
-      `http://${environment.HOST_3000}/api/v1/branch/register`,
+      `https://${environment.HOST_3000}/api/v1/branch/register/register`,
       Branch
     );
   }
 
   getAllBranch(): Observable<IBranchModel[]> {
     return this.http.get<IBranchModel[]>(
-      `http://${environment.HOST_3001}/api/v1/branches/`
+      `https://${environment.HOST_3001}/api/BranchQuery/GetAllBranch`
+    );
+  }
+
+  getBranchById(id: string): Observable<IBranchModel> {
+    return this.http.get<IBranchModel>(
+      `https://${environment.HOST_3001}/api/BranchQuery/GetBranchById`
     );
   }
 }

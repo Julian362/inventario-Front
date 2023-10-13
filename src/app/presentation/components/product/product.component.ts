@@ -4,7 +4,8 @@ import { IBranchModel, IProductModel } from '@domain/models';
 import { BranchRepository, ProductRepository } from '@domain/repository';
 import { NotifierService } from 'angular-notifier';
 import { BranchUseCaseProviders, productUseCaseProviders } from 'data/factory';
-import { IProductEntity, SocketService } from 'data/repository';
+import { IProductEntity } from 'data/repository';
+
 
 @Component({
   selector: 'app-product',
@@ -16,8 +17,7 @@ export class ProductComponent implements OnInit {
   constructor(
     private readonly productRepository: ProductRepository<IProductModel>,
     private readonly branchRepository: BranchRepository,
-    private formBuilder: FormBuilder,
-    private socketService: SocketService,
+    private formBuilder: FormBuilder,    
     private readonly notifier: NotifierService
   ) {
     this.notifier = notifier;
@@ -78,8 +78,7 @@ export class ProductComponent implements OnInit {
       console.log({
         name: this.registerForm.get('name')?.value,
         description: this.registerForm.get('description')?.value,
-        price: this.registerForm.get('price')?.value,
-        quantity: this.registerForm.get('quantity')?.value,
+        price: this.registerForm.get('price')?.value,        
         category: this.registerForm.get('category')?.value,
         branchId: this.registerForm.get('branchId')?.value,
       });
@@ -88,8 +87,7 @@ export class ProductComponent implements OnInit {
         .execute({
           name: this.registerForm.get('name')?.value,
           description: this.registerForm.get('description')?.value,
-          price: this.registerForm.get('price')?.value,
-          quantity: this.registerForm.get('quantity')?.value,
+          price: this.registerForm.get('price')?.value,          
           category: this.registerForm.get('category')?.value,
           branchId: this.registerForm.get('branchId')?.value,
         })
@@ -107,14 +105,12 @@ export class ProductComponent implements OnInit {
         });
     } else {
       console.log('sendToEndpoint invalid');
-      const controlName = this.registerForm.get('name');
-      const controlQuantity = this.registerForm.get('quantity');
+      const controlName = this.registerForm.get('name');     
       const controlBranchId = this.registerForm.get('branchId');
       const controlPrice = this.registerForm.get('price');
       const controlDescription = this.registerForm.get('description');
       const controlCategory = this.registerForm.get('category');
-      console.log(controlName?.invalid);
-      console.log(controlQuantity?.invalid);
+      console.log(controlName?.invalid);    
       console.log(controlBranchId?.invalid);
       console.log(controlPrice?.invalid);
       console.log(controlDescription?.invalid);

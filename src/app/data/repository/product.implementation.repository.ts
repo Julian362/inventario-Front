@@ -1,54 +1,68 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-
-import {
-  IProductAddQuantityModel,
-  IProductModel,
-  IProductSaleModel,
-} from '@domain/models';
+import { IProductModel, IProductRegisterModel } from '@domain/models';
 import { ProductRepository } from '@domain/repository';
+import { Observable } from 'rxjs';
+import { ProductImplementationRepositoryMapper } from './mappers';
 import { environment } from 'src/environments';
-import { ProductImplementationRepositoryMapper } from './mappers/product.mapper';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductImplementationRepository extends ProductRepository<IProductModel> {
-  apiUrl = `http://${environment.HOST_3000}/api/v1/product/`;
-  apiUrlGet = `http://${environment.HOST_3001}/api/v1/product/`;
-  apiUrlGetAll = `http://${environment.HOST_3001}/api/v1/products/`;
-
-  override getAllProduct(id: string): Observable<IProductModel[]> {
-    return this.http.get<IProductModel[]>(this.apiUrlGetAll + id);
-  }
-
-  registerProduct(data: IProductModel): Observable<IProductModel> {
-    return this.http.post<IProductModel>(`${this.apiUrl}register`, data);
-  }
-  registerQuantity(
-    id: string,
-    data: IProductAddQuantityModel
-  ): Observable<IProductModel> {
-    return this.http.patch<IProductModel>(`${this.apiUrl}purchase/${id}`, data);
-  }
-  registerCustomerSale(data: IProductSaleModel): Observable<IProductSaleModel> {
-    return this.http.post<IProductSaleModel>(
-      `${this.apiUrl}customer-sale/`,
-      data
-    );
-  }
-  registerResellerSale(data: IProductSaleModel): Observable<IProductSaleModel> {
-    return this.http.post<IProductSaleModel>(
-      `${this.apiUrl}seller-sale/`,
-      data
-    );
-  }
-  getProductById(id: string): Observable<IProductModel> {
-    return this.http.get<IProductModel>(`${this.apiUrlGetAll}${id}`);
-  }
-  ProductMapper = new ProductImplementationRepositoryMapper();
+export class ProductImplementationRepository extends ProductRepository {
+  productMapper = new ProductImplementationRepositoryMapper();
   constructor(private http: HttpClient) {
     super();
   }
+
+  createProduct(product: IProductRegisterModel): Observable<IProductModel> {
+    return this.http.post<IProductModel>(
+      `https://${environment.HOST_3000}/api/v1/product/register/register`,
+      product
+    );
+  }
+
+  getAllProduct(): Observable<IProductModel[]> {
+    return this.http.get<IProductModel[]>(
+      `https://${environment.HOST_3001}/api/ProductQuery/GetAllProducts`
+    );
+  }
+
+  getProductById(id: string): Observable<IProductModel> {
+    return this.http.get<IProductModel>(
+      `https://${environment.HOST_3001}/api/ProductQuery/GetProductById`
+    );
+  }
+
+  registerQuantity( id: string, quantity: number): Observable<IProductModel> {
+    return this.http.patch<IProductModel>(
+      `https://${environment.HOST_3000}/api/v1/product/register/purchase/`,
+      quantity
+    );
+  }
+
+  registerCustomerSale( id: string, quantity: number): Observable<IProductModel> {
+    return this.http.patch<IProductModel>(
+      `https://${environment.HOST_3000}/api/v1/product/register/customer-sale`,
+      quantity
+    );
+  }
+  registerResellerSale( id: string, quantity: number): Observable<IProductModel> {
+    return this.http.patch<IProductModel>(
+      `https://${environment.HOST_3000}/api/v1/product/register/reseller-sale`,
+      quantity
+    );
+  }
 }
+
+
+
+
+
+
+
+
+
+
+  
+

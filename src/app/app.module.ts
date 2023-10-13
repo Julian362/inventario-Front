@@ -12,9 +12,10 @@ import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DataModule, SocketService } from './data';
+import { DataModule } from './data';
 
-const config: SocketIoConfig = { url: environment.HOST_81, options: {} };
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,12 +28,11 @@ const config: SocketIoConfig = { url: environment.HOST_81, options: {} };
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    DataModule,
-    ReactiveFormsModule,
-    SocketIoModule.forRoot(config),
+    DataModule,    
+    ReactiveFormsModule,    
     NotifierModule,
   ],
-  providers: [SocketService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -8,7 +8,7 @@ export class BranchImplementationRepositoryMapper extends Mapper<
 > {
   mapFrom(param: BranchEntity): IBranchModel {
     return {
-      id: param.branchId,
+      branchId: param.branchId,
       location: param.location,
       name: param.name,
       products: [],
@@ -17,7 +17,7 @@ export class BranchImplementationRepositoryMapper extends Mapper<
   }
   mapTo(param: IBranchModel): BranchEntity {
     return {
-      branchId: param.id,
+      branchId: param.branchId,
       location: param.location,
       name: param.name,
       products: [],

@@ -13,7 +13,7 @@ export class ProductImplementationRepositoryMapper extends Mapper<
       description: param.description,
       name: param.name,
       price: param.price,
-      id: param.productId,
+      productId: param.productId,
       quantity: param.quantity,
     };
   }
@@ -24,7 +24,7 @@ export class ProductImplementationRepositoryMapper extends Mapper<
       description: param.description,
       name: param.name,
       price: param.price,
-      productId: param.id,
+      productId: param.productId,
       quantity: param.quantity,
     };
   }

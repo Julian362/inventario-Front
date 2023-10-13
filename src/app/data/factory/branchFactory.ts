@@ -1,5 +1,6 @@
 import { BranchRepository } from '@domain/repository';
 import { CreateBranchUseCase, GetAllBranchUseCase } from '@domain/use-case';
+import { GetBranchByIdBranchUseCase } from '@domain/use-case/branch/getBranchByIdUseCase';
 
 export const createBranchUseCaseFactory = (
   BranchRepository: BranchRepository
@@ -8,6 +9,10 @@ export const createBranchUseCaseFactory = (
 export const getAllBranchUseCaseFactory = (
   BranchRepository: BranchRepository
 ) => new GetAllBranchUseCase(BranchRepository);
+
+export const getBranchByIdUseCaseFactory = (
+  BranchRepository: BranchRepository
+) => new GetBranchByIdBranchUseCase(BranchRepository);
 
 export const BranchUseCaseProviders = {
   createBranch: {
@@ -20,4 +25,11 @@ export const BranchUseCaseProviders = {
     useFactory: getAllBranchUseCaseFactory,
     deps: [BranchRepository],
   },
+
+  getBranchById: {
+    provide: GetBranchByIdBranchUseCase,
+    useFactory: getBranchByIdUseCaseFactory,
+    deps: [BranchRepository],
+  },
+
 };

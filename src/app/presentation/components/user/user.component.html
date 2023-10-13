@@ -1,3 +1,4 @@
+
 <form [formGroup]="userDataForm" (ngSubmit)="onSubmit()" class="mt-4">
   <div class="mb-3">
     <label for="name" class="form-label">Nombre:</label>
@@ -28,7 +29,7 @@
   </div>
   <label for="branchId" class="form-label">Nombre Sucursal:</label>
   <select id="branchId" formControlName="branchId" class="form-control">
-    <option *ngFor="let branch of branchesList" [value]="branch.id">
+    <option *ngFor="let branch of branchesList" [value]="branch.branchId">
       {{ branch.name }}
     </option>
   </select>
@@ -42,10 +43,13 @@
     />
   </div>
   <div class="mb-3">
-    <label for="role" class="form-label">Rol:</label>
-    <select id="role" formControlName="role" class="form-control">
-      <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
-    </select>
+    <label for="role" class="form-label">role:</label>
+    <input
+      type="role"
+      id="role"
+      formControlName="role"
+      class="form-control"
+    />
   </div>
   <button type="submit" class="btn btn-primary">Registrar Usuario</button>
 </form>

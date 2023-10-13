@@ -19,7 +19,7 @@ import { BranchUseCaseProviders, SaleUseCaseProviders } from 'data/factory';
 export class BranchComponent implements OnInit {
   branchesList: IBranchModel[] = [];
   selectedBranchId: string = '';
-  products = this.socket.products;
+  products : IProductModel [] = [];
   productsSale: {
     id: string;
     name: string;
@@ -29,8 +29,7 @@ export class BranchComponent implements OnInit {
   numbers: number[] = [];
   numbersStock: number[] = [];
 
-  constructor(
-    private readonly socket: InventorySocket,
+  constructor(    
     private readonly branchRepository: BranchRepository,
     private readonly saleRepository: SaleRepository,
     private readonly productRepository: ProductRepository<IProductModel>,
@@ -69,15 +68,8 @@ export class BranchComponent implements OnInit {
   ngOnInit(): void {
     this.branchRepository.getAllBranch().subscribe((data) => {
       this.branchesList = data;
-    });
-    this.products.subscribe((data) => {
-      if (data.length > this.numbers.length) {
-        const number = data.length - this.numbers.length;
-        const auxNumbers: number[] = new Array(number).fill(0);
-        this.numbers = [...this.numbers, ...auxNumbers];
-        this.numbersStock = [...this.numbersStock, ...auxNumbers];
-      }
-    });
+    });    
+    
   }
   branchForm: FormGroup;
 
@@ -136,21 +128,17 @@ export class BranchComponent implements OnInit {
   }
 
   onBranchChange(): void {
-    this.socket.joinInventory(this.selectedBranchId);
+    
     this.productRepository
       .getAllProduct(this.selectedBranchId)
       .subscribe((data) => {
-        this.socket.setProducts(data);
-
-        this.socket.orderbyName();
+        this.products = data;
       });
   }
 
   addToCart(i: string, index: number): void {
     let product = {} as IProductModel;
-    this.products.subscribe((data) => {
-      product = data[index];
-    });
+    product = this.products.find((x) => x.productId === i) as IProductModel;
     if (this.numbers[index] <= 0) {
       this.notifier.notify('error', 'La cantidad debe ser mayor a 0');
       return;
