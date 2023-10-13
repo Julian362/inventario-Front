@@ -62,7 +62,17 @@ export class GetAllProductsComponent implements OnInit {
   }
 
   increment(index: number): void {
-    this.numbers[index] = this.numbers[index] + 1;
+    this.products.subscribe((data) => {
+      if (this.numbers[index] + 1 > data[index].quantity) {
+        this.notifier.notify(
+          'error',
+          'La cantidad no puede ser mayor al stock'
+        );
+        return;
+      } else {
+        this.numbers[index] = this.numbers[index] + 1;
+      }
+    });
   }
 
   decrement(index: number): void {

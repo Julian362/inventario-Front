@@ -2,13 +2,11 @@
   <div class="card">
     <div class="border">
       <i class="fa fa-heart"></i>
-      <img
-        [src]="
+      <img [src]="
           '../../../../../../assets/img/products-categories/' +
           product.category +
           '.png'
-        "
-      />
+        " />
     </div>
     <div class="central-div">
       <h3>{{ product.name }}</h3>
@@ -26,24 +24,20 @@
     </div>
 
     <div class="quantity">
-      <h5>{{ product.quantity }}</h5>
+      <br>
+      <h5>DISPONIBLE: {{ product.quantity }}</h5>
     </div>
-    <div class="form-outline input-number">
-      <input
-        type="number"
-        id="typeNumber"
-        [(ngModel)]="numbersStock"
-        class="form-control"
-        Form
-      />
+    <div class="input-group">
+      <div class="button-quantity">
+        <div class="value-button siz" id="decrease" (click)="decrement()" value="Decrease Value">-</div>
+        <input type="number" [max]="product.quantity" [(ngModel)]="numbersStock" (input)="validarNumero()"
+          id="number" />
+        <div class="value-button siz" id="increase" (click)="increment()" value="Increase Value">+</div>
+      </div>
     </div>
     <div class="buttons">
-      <button
-        class="quantity-button"
-        (click)="addStock()"
-        [ngClass]="{ quantityClicked: quantityClicked }"
-      >
-        <span class="add-to-quantity">Finalizar compra</span>
+      <button class="quantity-button" (click)="addStock()" [ngClass]="{ quantityClicked: quantityClicked }">
+        <span class="add-to-quantity">Añadir stock</span>
         <span class="added-quantity fs-4">
           <i class="bi-check2-circle blue"></i>
         </span>

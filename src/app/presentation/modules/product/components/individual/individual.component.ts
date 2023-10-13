@@ -47,6 +47,10 @@ export class IndividualProductComponent implements OnInit {
         complete: () => {
           this.notifier.notify('success', 'Cantidad agregada con éxito');
           this.quantityClicked = true;
+          this.numbersStock = 0;
+          if (this.product && this.product?.quantity) {
+            this.product.quantity = this.product.quantity + this.numbersStock;
+          }
         },
         error: (error) => {
           this.notifier.notify(
@@ -55,5 +59,21 @@ export class IndividualProductComponent implements OnInit {
           );
         },
       });
+  }
+
+  increment(): void {
+    this.numbersStock = this.numbersStock + 1;
+  }
+
+  decrement(): void {
+    if (this.numbersStock - 1 > 0) this.numbersStock = this.numbersStock - 1;
+    else this.numbersStock = 0;
+  }
+
+  validarNumero(): boolean {
+    if (this.product && this.product?.quantity <= 0) {
+      return true;
+    }
+    return false;
   }
 }
