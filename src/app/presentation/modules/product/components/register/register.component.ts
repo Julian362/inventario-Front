@@ -125,6 +125,7 @@ export class RegisterProductComponent implements OnInit {
   }
 
   handlerSuccess(response: IProductModel): void {
+    this.registerForm.reset();
     this.notifier.notify('success', 'Producto creado con éxito');
     // TODO: servicio de notificación
   }

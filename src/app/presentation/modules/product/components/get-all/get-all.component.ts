@@ -20,6 +20,7 @@ export class GetAllProductsComponent implements OnInit {
   userId: string = '';
   products = this.socket.products;
   p: number = 1;
+  size: number = 10;
   numbers: number[] = [];
   isChecked: boolean = false;
   factorySale = SaleUseCaseProviders;
@@ -91,7 +92,7 @@ export class GetAllProductsComponent implements OnInit {
     return product?.quantity ? product.quantity : 0;
   }
 
-  addToCart(i: string, index: number): void {
+  addToCart(id: string, index: number): void {
     let product = {} as IProductModel;
     this.products.subscribe((data) => {
       product = data[index];
@@ -100,14 +101,20 @@ export class GetAllProductsComponent implements OnInit {
       this.notifier.notify('error', 'La cantidad debe ser mayor a 0');
       return;
     }
-
-    this.cartClicked[index] = true;
-
-    this.productsSale.push({
-      id: i,
-      name: product?.name ? product.name : '',
-      quantity: this.numbers[index],
-    });
+    if (this.cartClicked[index]) {
+      this.cartClicked[index] = false;
+      this.productsSale.splice(
+        this.productsSale.findIndex((x) => x.id === id),
+        1
+      );
+    } else {
+      this.cartClicked[index] = true;
+      this.productsSale.push({
+        id: id,
+        name: product?.name ? product.name : '',
+        quantity: this.numbers[index],
+      });
+    }
   }
 
   closeCart() {
@@ -119,7 +126,9 @@ export class GetAllProductsComponent implements OnInit {
 
   deleteItem(id: string): void {
     this.productsSale.splice(
-      this.productsSale.findIndex((x) => x.id === id),
+      this.productsSale.findIndex((x) => {
+        x.id === id;
+      }),
       1
     );
   }

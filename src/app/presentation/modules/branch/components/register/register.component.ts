@@ -116,6 +116,7 @@ export class RegisterComponent {
   }
 
   handlerSuccess(response: IBranchModel): void {
+    this.registerForm.reset();
     this.notifier.notify('success', 'Sede creada con éxito');
     // TODO: servicio de notificación
   }

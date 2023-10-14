@@ -101,6 +101,7 @@ export class LoginComponent {
   }
 
   handlerSuccess(response: ILoginResponse): void {
+    this.loginForm.reset();
     this.notifier.notify('success', 'Bienvenido');
     setTimeout(() => {
       localStorage.setItem('user', JSON.stringify(response.data));
