@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -28,14 +27,14 @@ export class LoginComponent {
     private readonly notifier: NotifierService,
     private authService: AuthService
   ) {
+    this.notifier = notifier;
     this.loginForm = this.formBuilder.group({
-      email: [this.email, [Validators.required]],
+      email: [this.email, [Validators.required, Validators.email]],
       password: [this.password, [Validators.required]],
     });
   }
 
   onSubmit(): void {
-    this.notifier.notify('success', 'Hola!!');
     const data = <{ email: string; password: string }>this.loginForm.value;
     this.email = data.email;
     this.password = data.password;
@@ -45,8 +44,10 @@ export class LoginComponent {
       .useFactory(this.userRepository)
       .execute(this.email, this.password)
       .subscribe({
-        next: (response: ILoginResponse) => this.handlerSuccess(response),
-        error: (err) => this.handlerError(err),
+        next: (response) => this.handlerSuccess(response),
+        error: (err: Error) => {
+          this.handlerError(err);
+        },
       });
   }
 
@@ -100,20 +101,17 @@ export class LoginComponent {
   }
 
   handlerSuccess(response: ILoginResponse): void {
-    localStorage.setItem('user', JSON.stringify(response.data));
-    localStorage.setItem('token', response.token);
-    localStorage.setItem('branchId', response.data.branchId);
-    this.authService.login();
-    this.notifier.notify('success', 'Hola!!');
+    this.notifier.notify('success', 'Bienvenido');
     setTimeout(() => {
+      localStorage.setItem('user', JSON.stringify(response.data));
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('branchId', response.data.branchId);
+      this.authService.login();
       this.router.navigate(['/home']);
-    });
-    // TODO: servicio de notificación
+    }, 1000);
   }
 
-  handlerError(err: HttpErrorResponse): void {
-    console.log(err);
-    this.notifier.notify('error', 'Error al iniciar sesión');
-    // TODO: servicio de notificación
+  handlerError(err: any): void {
+    this.notifier.notify('error', 'Error al iniciar sesión' + err);
   }
 }

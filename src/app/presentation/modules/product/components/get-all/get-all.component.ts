@@ -25,6 +25,7 @@ export class GetAllProductsComponent implements OnInit {
   factorySale = SaleUseCaseProviders;
   cartClicked: boolean[] = [];
   saleClicked: boolean = false;
+  empty: boolean = true;
 
   productsSale: {
     id: string;
@@ -49,6 +50,11 @@ export class GetAllProductsComponent implements OnInit {
     this.socket.joinInventory(this.branchId);
     this.productRepository.getAllProduct(this.branchId).subscribe((data) => {
       this.socket.setProducts(data);
+      if (data.length === 0) {
+        this.empty = true;
+      } else {
+        this.empty = false;
+      }
       this.socket.orderbyName();
     });
     this.products.subscribe((data) => {
@@ -62,17 +68,7 @@ export class GetAllProductsComponent implements OnInit {
   }
 
   increment(index: number): void {
-    this.products.subscribe((data) => {
-      if (this.numbers[index] + 1 > data[index].quantity) {
-        this.notifier.notify(
-          'error',
-          'La cantidad no puede ser mayor al stock'
-        );
-        return;
-      } else {
-        this.numbers[index] = this.numbers[index] + 1;
-      }
-    });
+    this.numbers[index] = this.numbers[index] + 1;
   }
 
   decrement(index: number): void {
@@ -142,12 +138,12 @@ export class GetAllProductsComponent implements OnInit {
       .subscribe({
         complete: () => {
           this.saleClicked = true;
-          this.resetNumbers();
-          this.notifier.notify('success', 'Compra realizada con éxito');
 
           setTimeout(() => {
-            this.productsSale = [];
+            this.notifier.notify('success', 'Compra realizada con éxito');
             this.saleClicked = false;
+            this.resetNumbers();
+            this.productsSale = [];
           }, 3500);
         },
         error: (error) => {

@@ -121,10 +121,9 @@ export class RegisterComponent {
   }
 
   handlerError(err: HttpErrorResponse): void {
-    console.log(err);
     this.notifier.notify(
       'error',
-      'Error al registrar sede: ' + err.error.message ?? ''
+      'Error al registrar sede: ' + err.error.message ?? err.message
     );
     // TODO: servicio de notificación
   }

@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
 import {
   HttpEvent,
-  HttpInterceptor,
   HttpHandler,
+  HttpInterceptor,
   HttpRequest,
-  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   intercept(
@@ -19,11 +18,6 @@ export class AuthInterceptor implements HttpInterceptor {
         .set('Authorization', `Bearer ${authToken}`)
         .set('Content-Type', 'application/json'),
     });
-    return next.handle(authReq).pipe(catchError(this.errorHandler));
-  }
-
-  errorHandler(error: HttpErrorResponse): Observable<never> {
-    console.warn('We have an error: ', error);
-    return throwError(() => error);
+    return next.handle(authReq);
   }
 }

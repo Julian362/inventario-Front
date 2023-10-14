@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@presentation/shared/services/auth.service';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-landing',
@@ -17,7 +16,6 @@ export class LandingComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.loggedIn = localStorage.getItem('token') ? true : false;
-    console.log(this.loggedIn);
   }
 
   logout() {

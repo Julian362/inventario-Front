@@ -6,7 +6,6 @@ export class GetAllProductUseCase {
   constructor(private productRepository: ProductRepository<IProductModel>) {}
 
   execute(id: string): Observable<IProductModel[]> {
-    console.log('GetAllProductUseCase');
     return this.productRepository.getAllProduct(id);
   }
 }

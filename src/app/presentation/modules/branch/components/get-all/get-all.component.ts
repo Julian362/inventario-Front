@@ -11,7 +11,7 @@ import { NotifierService } from 'angular-notifier';
 export class GetAllBranchesComponent implements OnInit {
   selectedBranchId: string = '';
   branchesList: IBranchModel[] = [];
-
+  empty: boolean = true;
   constructor(
     private readonly branchRepository: BranchRepository,
     private readonly notifier: NotifierService
@@ -20,6 +20,11 @@ export class GetAllBranchesComponent implements OnInit {
   ngOnInit(): void {
     this.branchRepository.getAllBranch().subscribe((data) => {
       this.branchesList = data;
+      if (data.length === 0) {
+        this.empty = true;
+      } else {
+        this.empty = false;
+      }
     });
   }
   onBranchChange() {

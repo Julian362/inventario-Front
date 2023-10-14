@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@presentation/shared/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,9 +7,14 @@ import { AuthService } from '@presentation/shared/services/auth.service';
 })
 export class SidebarComponent implements OnInit {
   expanded: boolean = true;
-
-  constructor(private authService: AuthService) {}
-  ngOnInit(): void {}
+  role: string = '';
+  constructor() {}
+  ngOnInit(): void {
+    const user = JSON.parse(localStorage.getItem('user') ?? '');
+    if (user) {
+      this.role = user.role;
+    }
+  }
 
   toggleSidebar() {
     this.expanded = !this.expanded;
