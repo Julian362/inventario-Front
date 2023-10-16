@@ -118,14 +118,13 @@ export class RegisterComponent {
   handlerSuccess(response: IBranchModel): void {
     this.registerForm.reset();
     this.notifier.notify('success', 'Sede creada con éxito');
-    // TODO: servicio de notificación
   }
 
   handlerError(err: HttpErrorResponse): void {
+    console.log(err);
     this.notifier.notify(
       'error',
       'Error al registrar sede: ' + err.error.message ?? err.message
     );
-    // TODO: servicio de notificación
   }
 }

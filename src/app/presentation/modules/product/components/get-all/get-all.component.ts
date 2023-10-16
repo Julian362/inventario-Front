@@ -27,11 +27,13 @@ export class GetAllProductsComponent implements OnInit {
   cartClicked: boolean[] = [];
   saleClicked: boolean = false;
   empty: boolean = true;
+  currentProduct: IProductModel[] = [];
 
   productsSale: {
     id: string;
     name: string;
     quantity: number;
+    i: number;
   }[] = [];
 
   constructor(
@@ -59,6 +61,7 @@ export class GetAllProductsComponent implements OnInit {
       this.socket.orderbyName();
     });
     this.products.subscribe((data) => {
+      this.currentProduct = data;
       if (data.length > this.numbers.length) {
         const number = data.length - this.numbers.length;
         const auxNumbers: number[] = new Array(number).fill(0);
@@ -68,7 +71,12 @@ export class GetAllProductsComponent implements OnInit {
     });
   }
 
-  increment(index: number): void {
+  increment(index: number, id: string): void {
+    const product = this.currentProduct.find((x) => x.id === id);
+    if (product && product.quantity <= this.numbers[index]) {
+      this.notifier.notify('error', 'No hay suficiente stock');
+      return;
+    }
     this.numbers[index] = this.numbers[index] + 1;
   }
 
@@ -113,6 +121,7 @@ export class GetAllProductsComponent implements OnInit {
         id: id,
         name: product?.name ? product.name : '',
         quantity: this.numbers[index],
+        i: index,
       });
     }
   }
@@ -125,12 +134,15 @@ export class GetAllProductsComponent implements OnInit {
   }
 
   deleteItem(id: string): void {
+    const product = this.productsSale.find((x) => x.id === id);
+    const i = product?.i ? product.i : 0;
+    console.log(i);
+    this.numbers[i] = 0;
     this.productsSale.splice(
-      this.productsSale.findIndex((x) => {
-        x.id === id;
-      }),
+      this.productsSale.findIndex((x) => x.id === id),
       1
     );
+    this.cartClicked[i] = false;
   }
 
   purchase(): void {
@@ -172,6 +184,10 @@ export class GetAllProductsComponent implements OnInit {
   pageChanged(event: any): void {
     this.resetNumbers();
     this.p = event;
+    this.productsSale.forEach((product) => {
+      this.numbers[product.i] = product.quantity;
+      this.cartClicked[product.i] = true;
+    });
   }
 
   mapCategoryToClass(category: string): string {

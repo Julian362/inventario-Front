@@ -156,12 +156,10 @@ export class RegisterComponent implements OnInit {
   handlerSuccess(response: IUserModel): void {
     this.registerForm.reset();
     this.notifier.notify('success', 'Usuario creado con éxito');
-    // TODO: servicio de notificación
   }
 
   handlerError(err: HttpErrorResponse): void {
     console.log(err);
     this.notifier.notify('error', 'Error al registrar usuario');
-    // TODO: servicio de notificación
   }
 }

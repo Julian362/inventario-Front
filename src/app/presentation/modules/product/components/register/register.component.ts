@@ -127,7 +127,6 @@ export class RegisterProductComponent implements OnInit {
   handlerSuccess(response: IProductModel): void {
     this.registerForm.reset();
     this.notifier.notify('success', 'Producto creado con éxito');
-    // TODO: servicio de notificación
   }
 
   handlerError(err: HttpErrorResponse): void {
@@ -136,6 +135,5 @@ export class RegisterProductComponent implements OnInit {
       'error',
       'Error al registrar producto: ' + err.error.message ?? ''
     );
-    // TODO: servicio de notificación
   }
 }

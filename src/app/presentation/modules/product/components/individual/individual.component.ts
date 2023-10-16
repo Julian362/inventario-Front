@@ -30,7 +30,6 @@ export class IndividualProductComponent implements OnInit {
       .getProductById(this.productId || '')
       .subscribe((data) => {
         this.product = data;
-        console.log(this.product);
       });
   }
 

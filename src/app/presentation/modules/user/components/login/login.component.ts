@@ -113,6 +113,7 @@ export class LoginComponent {
   }
 
   handlerError(err: any): void {
+    console.log(err);
     this.notifier.notify('error', 'Error al iniciar sesión' + err);
   }
 }

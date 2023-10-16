@@ -79,8 +79,6 @@ export const AuthGuardEmployee = () => {
   const token = localStorage.getItem('token');
   const user = localStorage.getItem('user');
   const router = inject(Router);
-  console.log(user);
-  console.log(token);
   if (user != null && token != null) {
     const { userId, role } = JSON.parse(user) as IUserLoggedIn;
     const factoryUser = UserUseCaseProviders;
