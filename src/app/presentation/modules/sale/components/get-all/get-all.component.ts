@@ -24,6 +24,7 @@ export class GetAllSalesComponent implements OnInit {
       .execute(this.branchId)
       .subscribe((data) => {
         this.saleSocket.setSales(data);
+        this.saleSocket.orderbyNumber();
       });
   }
 }

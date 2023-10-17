@@ -9,4 +9,5 @@ export interface IProductSaleModel {
   number: number;
   total: number;
   date: Date;
+  type: string;
 }

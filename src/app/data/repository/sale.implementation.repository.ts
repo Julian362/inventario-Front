@@ -28,6 +28,7 @@ export class SaleImplementationRepository extends SaleRepository {
           date: Date;
           branchId: string;
           products: string[];
+          type: string;
         }[]
       >(`${this.apiUrlGetAll}${id}`)
       .pipe(
@@ -40,6 +41,7 @@ export class SaleImplementationRepository extends SaleRepository {
                 total: sale.total,
                 date: sale.date,
                 branchId: sale.branchId,
+                type: sale.type,
                 products: sale.products.map((product) => {
                   return JSON.parse(product) as {
                     name: string;

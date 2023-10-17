@@ -4,6 +4,7 @@ export interface ISaleModel {
     quantity: number;
   }[];
   branchId: string;
+  type?: string;
   userId?: string;
   discount?: number;
 }
