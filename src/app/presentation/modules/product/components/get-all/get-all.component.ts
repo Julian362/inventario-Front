@@ -20,7 +20,7 @@ export class GetAllProductsComponent implements OnInit {
   userId: string = '';
   products = this.socket.products;
   p: number = 1;
-  size: number = 10;
+  size: number = 12;
   numbers: number[] = [];
   isChecked: boolean = false;
   factorySale = SaleUseCaseProviders;
