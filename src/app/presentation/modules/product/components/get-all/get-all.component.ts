@@ -22,12 +22,12 @@ export class GetAllProductsComponent implements OnInit {
   p: number = 1;
   size: number = 10;
   numbers: number[] = [];
-  isChecked: boolean = false;
   factorySale = SaleUseCaseProviders;
   cartClicked: boolean[] = [];
   saleClicked: boolean = false;
   empty: boolean = true;
   currentProduct: IProductModel[] = [];
+  isActive: boolean = true;
 
   productsSale: {
     id: string;
@@ -154,7 +154,7 @@ export class GetAllProductsComponent implements OnInit {
           branchId: this.branchId,
           userId: this.userId,
         },
-        this.isChecked ? 'seller-sale' : 'customer-sale'
+        this.isActive ? 'customer-sale' : 'seller-sale'
       )
       .subscribe({
         complete: () => {
@@ -188,6 +188,10 @@ export class GetAllProductsComponent implements OnInit {
       this.numbers[product.i] = product.quantity;
       this.cartClicked[product.i] = true;
     });
+  }
+
+  toggleSlider() {
+    this.isActive = !this.isActive;
   }
 
   mapCategoryToClass(category: string): string {
