@@ -4,6 +4,7 @@ interface IWindowEnvironment {
   HOST_3002: string;
   HOST_3003: string;
   HOST_81: string;
+  KEY_EMAIL: string;
 }
 
 declare global {
@@ -18,5 +19,6 @@ export const environment = {
   HOST_3002: window._env.HOST_3002,
   HOST_3003: window._env.HOST_3003,
   HOST_81: window._env.HOST_81,
+  KEY_EMAIL: window._env.KEY_EMAIL,
   production: false,
 };

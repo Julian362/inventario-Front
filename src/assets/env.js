@@ -14,4 +14,5 @@
   window._env.HOST_3002 = "localhost:3002";
   window._env.HOST_3003 = "localhost:3003";
   window._env.HOST_81 = "localhost:81";
+  window._env.KEY_EMAIL = "email";
 })(this);
