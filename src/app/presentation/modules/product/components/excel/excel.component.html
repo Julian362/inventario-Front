@@ -39,7 +39,22 @@
             class="border rounded-lg border-2 border-primary bg-light text-center"
             (click)="activarInput()"
           >
-            <h2 *ngIf="load">Archivo cargado</h2>
+            <span
+              *ngIf="selectedFileName"
+              [ngClass]="{
+                red: !load,
+                green: load
+              }"
+            >
+              <i
+                [ngClass]="{
+                  'bi bi-file-earmark-spreadsheet-fill text-success': load,
+                  'bi bi-file-earmark-excel text-danger': !load
+                }"
+              ></i>
+              Archivo seleccionado: {{ selectedFileName }}
+            </span>
+
             <div class="pt-5">
               <i class="fs-2 bi-upload"></i>
             </div>
@@ -58,6 +73,7 @@
             id="file-upload"
             style="display: none"
             #fileInput
+            accept=".xlsx"
           />
         </div>
       </div>

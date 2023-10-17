@@ -2,6 +2,14 @@
   margin-top: 18%;
 }
 
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
 .upload-button {
   height: 50px;
   width: 250px;

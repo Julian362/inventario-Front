@@ -11,6 +11,7 @@ import * as XLSX from 'xlsx';
 })
 export class ExcelComponent {
   @ViewChild('fileInput') fileInput?: ElementRef;
+  selectedFileName: string | undefined;
   load = false;
   constructor(
     private readonly saver: FileSaverService,
@@ -28,19 +29,27 @@ export class ExcelComponent {
   }[];
   activarInput() {
     this.fileInput?.nativeElement.click();
-    this.load = true;
   }
 
   readExcel(event: any) {
     let file = event.target.files[0];
-
+    this.selectedFileName = file.name;
+    this.load = true;
+    if (!file.name.endsWith('.xlsx')) {
+      this.notifier.notify(
+        'error',
+        'El archivo debe ser de tipo excel (.xlsx)'
+      );
+      this.load = false;
+      return;
+    }
     let reader = new FileReader();
 
     reader.readAsBinaryString(file);
 
     reader.onload = (e) => {
-      let workBook = XLSX.read(reader.result, { type: 'binary' });
-      var sheetName = workBook.SheetNames;
+      const workBook = XLSX.read(reader.result, { type: 'binary' });
+      const sheetName = workBook.SheetNames;
       const jsonSimple = XLSX.utils.sheet_to_json(
         workBook.Sheets[sheetName[0]]
       ) as {
