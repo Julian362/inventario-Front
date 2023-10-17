@@ -481,3 +481,32 @@ h6.ml-1 {
 .product-image:hover {
   cursor: pointer;
 }
+
+/* Custom styles for the slider button */
+.outer-slider {
+  /* Add any additional outer-slider styles here */
+}
+
+.slider-button {
+  /* Add any additional slider-button styles here */
+}
+
+/* Custom styles for the input and span */
+input:focus ~ span {
+  color: blue;
+}
+
+/* Custom styles for the active class */
+.active {
+  left: 162px;
+  position: absolute;
+}
+
+/* Custom styles for the warning class */
+.warning {
+  border-bottom: 2px solid red !important;
+}
+
+.switchSaleActive {
+  background-color: #0000e0;
+}
