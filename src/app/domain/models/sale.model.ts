@@ -7,4 +7,5 @@ export interface ISaleModel {
   type?: string;
   userId?: string;
   discount?: number;
+  email?: string;
 }

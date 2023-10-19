@@ -44,7 +44,7 @@ export class LoginComponent {
       .useFactory(this.userRepository)
       .execute(this.email, this.password)
       .subscribe({
-        next: (response) => this.handlerSuccess(response),
+        next: (response) => this.handlerSuccess(response, this.email),
         error: (err: Error) => {
           this.handlerError(err);
         },
@@ -100,13 +100,14 @@ export class LoginComponent {
     }
   }
 
-  handlerSuccess(response: ILoginResponse): void {
+  handlerSuccess(response: ILoginResponse, email: string): void {
     this.loginForm.reset();
     this.notifier.notify('success', 'Bienvenido');
     setTimeout(() => {
       localStorage.setItem('user', JSON.stringify(response.data));
       localStorage.setItem('token', response.token);
       localStorage.setItem('branchId', response.data.branchId);
+      localStorage.setItem('email', email);
       this.authService.login();
       this.router.navigate(['/home']);
     }, 1000);

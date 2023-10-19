@@ -48,8 +48,8 @@ export class GetAllProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.branchId = localStorage.getItem('branchId') || '';
-    this.userId = JSON.parse(localStorage.getItem('user') || '').userId;
+    this.branchId = localStorage.getItem('branchId') ?? '';
+    this.userId = JSON.parse(localStorage.getItem('user') ?? '').userId;
     this.socket.joinInventory(this.branchId);
     this.productRepository.getAllProduct(this.branchId).subscribe((data) => {
       this.socket.setProducts(data);
@@ -153,6 +153,7 @@ export class GetAllProductsComponent implements OnInit {
           products: this.productsSale,
           branchId: this.branchId,
           userId: this.userId,
+          email: localStorage.getItem('email') ?? '',
         },
         this.isActive ? 'customer-sale' : 'seller-sale'
       )
@@ -190,8 +191,12 @@ export class GetAllProductsComponent implements OnInit {
     });
   }
 
-  toggleSlider() {
-    this.isActive = !this.isActive;
+  toggleSlider(type: String) {
+    if (type == 'customer') {
+      this.isActive = true;
+    } else if (type == 'seller') {
+      this.isActive = false;
+    }
   }
 
   mapCategoryToClass(category: string): string {
