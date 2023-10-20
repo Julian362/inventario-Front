@@ -3,7 +3,7 @@ export interface IProductModel {
   name: string;
   description: string;
   price: number;
-  quantity: number;
+  inventoryStock: number;
   category: string;
   branchId: string;
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IProductModel, IProductRegisterModel } from '@domain/models';
+import { IProductAddQuantityModel, IProductModel, IProductRegisterModel, IProductSaleModel, ISaleModel } from '@domain/models';
 import { ProductRepository } from '@domain/repository';
 import { Observable } from 'rxjs';
 import { ProductImplementationRepositoryMapper } from './mappers';
@@ -9,7 +9,7 @@ import { environment } from 'src/environments';
 @Injectable({
   providedIn: 'root',
 })
-export class ProductImplementationRepository extends ProductRepository {
+export class ProductImplementationRepository extends ProductRepository<IProductModel> {
   productMapper = new ProductImplementationRepositoryMapper();
   constructor(private http: HttpClient) {
     super();
@@ -34,26 +34,29 @@ export class ProductImplementationRepository extends ProductRepository {
     );
   }
 
-  registerQuantity( id: string, quantity: number): Observable<IProductModel> {
+  registerQuantity(id: string, data: IProductAddQuantityModel): Observable<IProductModel> {
     return this.http.patch<IProductModel>(
-      `https://${environment.HOST_3000}/api/v1/product/register/purchase/`,
-      quantity
+      `https://${environment.HOST_3000}/api/v1/product/register/purchase/ ${id}`,
+      data
     );
   }
-
-  registerCustomerSale( id: string, quantity: number): Observable<IProductModel> {
-    return this.http.patch<IProductModel>(
+  registerCustomerSale = (data: ISaleModel): Observable<IProductSaleModel> => {
+    return this.http.patch<IProductSaleModel>(
       `https://${environment.HOST_3000}/api/v1/product/register/customer-sale`,
-      quantity
+      data
     );
-  }
-  registerResellerSale( id: string, quantity: number): Observable<IProductModel> {
-    return this.http.patch<IProductModel>(
+  };
+  registerResellerSale = (data: IProductSaleModel): Observable<IProductSaleModel> => {
+    return this.http.patch<IProductSaleModel>(
       `https://${environment.HOST_3000}/api/v1/product/register/reseller-sale`,
-      quantity
+      data
     );
-  }
+  };
+  
+
 }
+
+ 
 
 
 

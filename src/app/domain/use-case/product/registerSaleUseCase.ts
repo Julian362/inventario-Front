@@ -1,16 +1,17 @@
 import { UseCase } from '@domain/base';
-import { IProductSaleModel } from '@domain/models';
+import { IProductSaleModel, ISaleModel } from '@domain/models';
 import { ProductRepository } from '@domain/repository';
 import { Observable } from 'rxjs';
 
 export class RegisterCustomerSaleUseCase
-  implements UseCase<IProductSaleModel, IProductSaleModel>
+  implements UseCase<ISaleModel, IProductSaleModel>
 {
   constructor(
     private productRepository: ProductRepository<IProductSaleModel>
   ) {}
 
-  execute(product: IProductSaleModel): Observable<IProductSaleModel> {
+  execute(product: ISaleModel): Observable<IProductSaleModel> {
     return this.productRepository.registerCustomerSale(product);
   }
 }
+

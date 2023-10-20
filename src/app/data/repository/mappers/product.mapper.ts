@@ -14,7 +14,7 @@ export class ProductImplementationRepositoryMapper extends Mapper<
       name: param.name,
       price: param.price,
       productId: param.productId,
-      quantity: param.quantity,
+      inventoryStock: param.quantity,
     };
   }
   mapTo(param: IProductModel): IProductEntity {
@@ -25,7 +25,7 @@ export class ProductImplementationRepositoryMapper extends Mapper<
       name: param.name,
       price: param.price,
       productId: param.productId,
-      quantity: param.quantity,
+      quantity: param.inventoryStock,
     };
   }
 }

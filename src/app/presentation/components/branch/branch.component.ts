@@ -4,37 +4,42 @@ import {
   IBranchModel,
   IBranchRegisterModel,
   IProductModel,
+  IProductSaleModel,
+  ISaleModel,
 } from '@domain/models';
 import { BranchRepository, ProductRepository } from '@domain/repository';
-import { SaleRepository } from '@domain/repository/sales.repository';
-import { InventorySocket } from '@presentation/services/inventory.service';
+import * as signalR from '@microsoft/signalr';
 import { NotifierService } from 'angular-notifier';
-import { BranchUseCaseProviders, SaleUseCaseProviders } from 'data/factory';
+import { BranchUseCaseProviders, productUseCaseProviders } from 'data/factory';
+import { SignalRService } from 'data/signalR/signalr.service';
 
 @Component({
   selector: 'app-branch',
   templateUrl: './branch.component.html',
   styleUrls: ['./branch.component.css'],
 })
-export class BranchComponent implements OnInit {
+export class BranchComponent implements OnInit {   
   branchesList: IBranchModel[] = [];
   selectedBranchId: string = '';
   products : IProductModel [] = [];
   productsSale: {
-    id: string;
-    name: string;
+    productId: string;   
     quantity: number;
   }[] = [];
 
   numbers: number[] = [];
-  numbersStock: number[] = [];
+  numbersStock: number[] = [];  
+  
 
   constructor(    
-    private readonly branchRepository: BranchRepository,
-    private readonly saleRepository: SaleRepository,
+    private readonly branchRepository: BranchRepository, 
     private readonly productRepository: ProductRepository<IProductModel>,
+    private readonly saleRepository: ProductRepository<IProductSaleModel>,
     private formBuilder: FormBuilder,
-    private readonly notifier: NotifierService
+    private readonly notifier: NotifierService,
+    private servicio : SignalRService
+
+  
   ) {
     this.notifier = notifier;
     this.branchForm = this.formBuilder.group({
@@ -63,18 +68,27 @@ export class BranchComponent implements OnInit {
           Validators.maxLength(30),
         ],
       ],
-    });
+    });    
+      
   }
   ngOnInit(): void {
-    this.branchRepository.getAllBranch().subscribe((data) => {
-      this.branchesList = data;
-    });    
-    
+    this.branchRepository.getAllBranch().subscribe((branch) => {
+      this.branchesList = branch;
+
+      });
+      this.servicio.startConnection();
+      this.servicio.recieveMessage();
+      this.servicio.subjectRecieveMessage.subscribe((data) => {
+        this.branchesList.push(data);
+      });
+           
+     
+  
   }
   branchForm: FormGroup;
 
   factory = BranchUseCaseProviders;
-  factorySale = SaleUseCaseProviders;
+  factorySale = productUseCaseProviders;
 
   increment(index: number): void {
     this.numbers[index] = this.numbers[index] + 1;
@@ -86,7 +100,7 @@ export class BranchComponent implements OnInit {
   }
 
   validarNumero(id: string): boolean {
-    const product = this.productsSale.find((x) => x.id === id);
+    const product = this.productsSale.find((x) => x.productId === id);
     if (product) {
       if (product.quantity <= 0) {
         return true;
@@ -96,7 +110,7 @@ export class BranchComponent implements OnInit {
   }
 
   getNumber(id: string): number {
-    const product = this.productsSale.find((x) => x.id === id);
+    const product = this.productsSale.find((x) => x.productId === id);
     return product?.quantity ? product.quantity : 0;
   }
 
@@ -144,36 +158,37 @@ export class BranchComponent implements OnInit {
       return;
     }
     this.productsSale.push({
-      id: i,
-      name: product?.name ? product.name : '',
+      productId: i,     
       quantity: this.numbers[index],
     });
   }
 
   deleteItem(id: string): void {
     this.productsSale.splice(
-      this.productsSale.findIndex((x) => x.id === id),
+      this.productsSale.findIndex((x) => x.productId === id),
       1
     );
   }
 
   purchase(): void {
-    this.factorySale.createSale
+    this.factorySale.customerSale
       .useFactory(this.saleRepository)
       .execute(
         {
           products: this.productsSale,
+          number: 0,
           branchId: this.selectedBranchId,
-        },
-        this.selectedBranchId
-      )
+        }
+      
+      )     
+
       .subscribe({
         complete: () => {
           this.notifier.notify('success', 'Compra realizada con éxito');
           this.productsSale = [];
           this.resetNumbers();
         },
-        error: (error) => {
+        error: (error: any) => {
           this.notifier.notify(
             'error',
             error.error.message ? error.error.message : error

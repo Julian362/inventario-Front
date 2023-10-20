@@ -13,4 +13,6 @@ export class RegisterSellerUseCase
   execute(product: IProductSaleModel): Observable<IProductSaleModel> {
     return this.ProductRepository.registerResellerSale(product);
   }
+
 }
+

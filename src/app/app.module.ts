@@ -8,8 +8,6 @@ import {
   UserComponent,
 } from '@presentation/components';
 import { NotifierModule } from 'angular-notifier';
-import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
-import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DataModule } from './data';

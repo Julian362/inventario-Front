@@ -1,0 +1,30 @@
+/* styles.css */
+
+/* Estilo para el botón User */
+.btn-user {
+    background-color: #ff5733; /* Cambia el color de fondo según tus preferencias */
+    color: white;
+    border: 1px solid #ff5733;
+  }
+  
+  /* Estilo para el botón Product */
+  .btn-product {
+    background-color: #337fff; /* Cambia el color de fondo según tus preferencias */
+    color: white;
+    border: 1px solid #337fff;
+  }
+  
+  /* Estilo para el botón Branch */
+  .btn-branch {
+    background-color: #33ff57; /* Cambia el color de fondo según tus preferencias */
+    color: white;
+    border: 1px solid #33ff57;
+  }
+  
+  /* Estilo para el botón Sale */
+  .btn-sale {
+    background-color: #ff33b8; /* Cambia el color de fondo según tus preferencias */
+    color: white;
+    border: 1px solid #ff33b8;
+  }
+  

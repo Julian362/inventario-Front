@@ -6,6 +6,6 @@ export class CreateProductUseCase {
   constructor(private productRepository: ProductRepository<IProductModel>) {}
 
   execute(product: IProductRegisterModel): Observable<IProductModel> {
-    return this.productRepository.registerProduct(product);
+    return this.productRepository.createProduct(product);
   }
 }

@@ -1,12 +1,8 @@
-export interface IProductSaleModel {
-  products: {
-    name: string;
-    quantity: number;
-    price: number;
-  }[];
+export interface IProductSaleModel {  
+  quantity: number; 
   branchId: string;
-  id: string;
+  salesId: string;
   number: number;
-  total: number;
-  date: Date;
+  total: number;  
+  type: string;
 }
