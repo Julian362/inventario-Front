@@ -78,8 +78,9 @@ export class BranchComponent implements OnInit {
       });
       this.servicio.startConnection();
       this.servicio.recieveMessage();
-      this.servicio.subjectRecieveMessage.subscribe((data) => {
+      this.servicio.subjectRecieveMessage.subscribe((data) => {        
         this.branchesList.push(data);
+        console.log(data);
       });
            
      

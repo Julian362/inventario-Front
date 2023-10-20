@@ -35,8 +35,8 @@ export class ProductImplementationRepository extends ProductRepository<IProductM
   }
 
   registerQuantity(id: string, data: IProductAddQuantityModel): Observable<IProductModel> {
-    return this.http.patch<IProductModel>(
-      `https://${environment.HOST_3000}/api/v1/product/register/purchase/ ${id}`,
+    return this.http.post<IProductModel>(
+      `https://${environment.HOST_3000}/api/v1/product/register/purchase?productId=${id}`,
       data
     );
   }

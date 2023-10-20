@@ -13,7 +13,7 @@ export class SignalRService {
 
   constructor() {
     
-    this.hubConnection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7083/Socket").build();
+    this.hubConnection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7152/Socket").build();
 
    }
 
@@ -27,6 +27,7 @@ export class SignalRService {
 
   public recieveMessage = () => {
     this.hubConnection.on("BranchCreated", (branch) => {
+      
       this.subjectRecieveMessage.next(branch);
     });
   }
